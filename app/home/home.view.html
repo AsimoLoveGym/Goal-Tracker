@@ -1,4 +1,5 @@
-﻿<h1>Hi {{vm.user.firstName}}!</h1>
+﻿<!-- Todo: Move to account management -->
+<!-- <h1>Hi {{vm.user.firstName}}!</h1>
 <p>You're logged in!!</p>
 <h3>All registered users:</h3>
 <ul>
@@ -7,5 +8,13 @@
         - <a ng-click="vm.deleteUser(user.id)">Delete</a>
     </li>
 </ul>
-<p>&nbsp;</p>
+<p>&nbsp;</p> -->
+
 <p><a href="#!/login" class="btn btn-primary">Logout</a></p>
+<div id="viewer"></div>
+
+<h3>Stack Overflow - Calendar Heatmap</h3>
+<h4>Daily number of answered posts</h4>
+<svg id="svg"></svg>
+
+<div class="container"></div>
