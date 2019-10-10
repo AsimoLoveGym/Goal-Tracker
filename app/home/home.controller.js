@@ -42,17 +42,17 @@ function HomeController(UserService, $rootScope) {
             });
     }
 
-    drawTimeline();
+    // drawTimeline();
 
     // drawHeatmap();
 }
 
-function drawTimeline() {
-    var timelineChart = d3.chart.timeline();
-    d3.select('#chart_placeholder')
-        .datum(data)
-        .call(timelineChart);
-}
+// function drawTimeline() {
+//     var timelineChart = d3.chart.timeline();
+//     d3.select('#chart_placeholder')
+//         .datum(data)
+//         .call(timelineChart);
+// }
 
 // Build heatmap with plugin library calendar-heatmap
 // function drawHeatmap() {
