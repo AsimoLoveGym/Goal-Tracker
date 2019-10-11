@@ -1,58 +1,102 @@
 ﻿var viewContainer;
 
+// angular
+//     .module('app')
+//     .controller('HomeController', HomeController);
+
 angular
     .module('app')
-    .controller('HomeController', HomeController);
+    .controller('HomeController', function($scope, UserService, $rootScope, $mdDialog) {
+        console.log("HomeController invoked");
 
-HomeController.$inject = ['UserService', '$rootScope'];
+        // var vm = this;
+        $scope.user = null;
+        $scope.allUsers = [];
+        $scope.deleteUser = deleteUser;
 
-function HomeController(UserService, $rootScope) {
-    console.log("HomeController invoked");
+        initController();
 
-    var vm = this;
-    vm.user = null;
-    vm.allUsers = [];
-    vm.deleteUser = deleteUser;
+        function initController() {
+            loadCurrentUser();
+            loadAllUsers();
+        }
 
-    initController();
+        function loadCurrentUser() {
+            UserService.GetByUsername($rootScope.globals.currentUser.username)
+                .then(function(user) {
+                    $scope.user = user;
+                });
+        }
 
-    function initController() {
-        loadCurrentUser();
-        loadAllUsers();
-    }
+        function loadAllUsers() {
+            UserService.GetAll()
+                .then(function(users) {
+                    $scope.allUsers = users;
+                });
+        }
 
-    function loadCurrentUser() {
-        UserService.GetByUsername($rootScope.globals.currentUser.username)
-            .then(function(user) {
-                vm.user = user;
+        function deleteUser(id) {
+            UserService.Delete(id)
+                .then(function() {
+                    loadAllUsers();
+                });
+        }
+
+        $scope.customFullscreen = false;
+
+        function DialogController($scope, $mdDialog) {
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+
+            $scope.answer = function(answer) {
+                $mdDialog.hide(answer);
+            };
+        }
+
+        $scope.showAdvanced = function(ev) {
+            $mdDialog.show({
+                    controller: DialogController,
+                    templateUrl: 'dialog/dialog1.tmpl.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: true,
+                    fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+                })
+                .then(function(answer) {
+                    $scope.status = 'You said the information was "' + answer + '".';
+                }, function() {
+                    $scope.status = 'You cancelled the dialog.';
+                });
+        };
+
+
+        $scope.showPrompt = function(ev) {
+            // Appending dialog to document.body to cover sidenav in docs app
+            var confirm = $mdDialog.prompt()
+                .title('What would you name your dog?')
+                .textContent('Bowser is a common name.')
+                .placeholder('Dog name')
+                .ariaLabel('Dog name')
+                .initialValue('Buddy')
+                .targetEvent(ev)
+                .required(true)
+                .ok('Okay!')
+                .cancel('I\'m a cat person');
+
+            $mdDialog.show(confirm).then(function(result) {
+                $scope.status = 'You decided to name your dog ' + result + '.';
+            }, function() {
+                $scope.status = 'You didn\'t name your dog.';
             });
-    }
+        };
 
-    function loadAllUsers() {
-        UserService.GetAll()
-            .then(function(users) {
-                vm.allUsers = users;
-            });
-    }
-
-    function deleteUser(id) {
-        UserService.Delete(id)
-            .then(function() {
-                loadAllUsers();
-            });
-    }
-
-    // drawTimeline();
-
-    // drawHeatmap();
-}
-
-// function drawTimeline() {
-//     var timelineChart = d3.chart.timeline();
-//     d3.select('#chart_placeholder')
-//         .datum(data)
-//         .call(timelineChart);
-// }
+        // drawHeatmap();
+    });
 
 // Build heatmap with plugin library calendar-heatmap
 // function drawHeatmap() {

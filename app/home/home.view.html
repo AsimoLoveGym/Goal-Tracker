@@ -15,3 +15,39 @@
 <h4>Daily number of answered posts</h4>
 <svg id="svg"></svg>
 <div class="container"></div>
+<button type="button" ng-class="{'btn-danger': addingGoal, 'btn-primary': !addingGoal}" class="btn " ng-click="addingGoal = !addingGoal">{{addingGoal ? 'Cancel' : 'Add'}}</button>
+<div ng-show="addingGoal">
+    <h4>Goal Information</h4>
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputGoalName">Name</label>
+                <input type="email" class="form-control" id="inputGoalName" placeholder="What you'd like to achieve?">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputDescription">Description</label>
+            <input type="text" class="form-control" id="inputDescription" placeholder="Add a little bit detail about your goal">
+        </div>
+        <div class="form-group">
+            <label for="inputStartDate">Start Date</label>
+            <input type="text" class="form-control" id="inputStartDate" placeholder="2019-10-12">
+        </div>
+        <div class="form-group">
+            <label for="inputEndDate">End Date</label>
+            <input type="text" class="form-control" id="inputEndDate" placeholder="2020-10-12">
+        </div>
+        <div class="form-group">
+            <label for="goalChecked">Is this goal achieved?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="goalChecked">
+                <label class="form-check-label ml-4" for="goalChecked">
+                    Yes
+                </label>
+            </div>
+        </div>
+        <div class="d-flex flex-row-reverse">
+        	<button type="submit" class="btn btn-primary">Add Goal</button>
+        </div>
+    </form>
+</div>

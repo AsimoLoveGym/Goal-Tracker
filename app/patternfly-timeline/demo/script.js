@@ -15,6 +15,7 @@ const ONE_HOUR = 60 * 60 * 1000,
     ONE_MONTH = 30 * ONE_DAY,
     SIX_MONTHS = 6 * ONE_MONTH;
 
+// Todo: should have a function to filter the start and end date
 var data = [],
     start = new Date('2016-04-02T20:14:22.691Z'),
     today = new Date('2016-05-02T17:59:06.134Z');
@@ -39,6 +40,8 @@ var timeline = d3.chart.timeline()
     .minScale(ONE_WEEK / ONE_MONTH)
     .maxScale(ONE_WEEK / ONE_HOUR)
     .eventClick(function(el) {
+        // var args = [...arguments];
+        // console.log("args: ", args)
         var table = '<table class="table table-striped table-bordered">';
         if (el.hasOwnProperty("events")) {
             table = table + '<thead>This is a group of ' + el.events.length + ' events starting on ' + el.date + '</thead><tbody>';
