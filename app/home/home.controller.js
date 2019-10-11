@@ -14,6 +14,9 @@ angular
         $scope.allUsers = [];
         $scope.deleteUser = deleteUser;
 
+        $scope.milestones = [];
+        $scope.checkIns = [];
+
         initController();
 
         function initController() {
@@ -95,22 +98,34 @@ angular
             });
         };
 
+        $scope.addMilestone = function(newMilestone) {
+            $scope.milestones.push(newMilestone);
+            console.log("$scope.milestones: ", $scope.milestones);
+        };
+
+        $scope.addCheckIns = function(newCheckIns) {
+            $scope.checkIns.push(newCheckIns);
+            console.log("$scope.checkIns: ", $scope.checkIns);
+        };
+
         $scope.addGoal = function() {
             console.log("goalName: ", $scope.goalName);
             console.log("goalDescription: ", $scope.goalDescription);
             console.log("startDate: ", $scope.startDate);
             console.log("endDate: ", $scope.endDate);
             console.log("goalChecked: ", $scope.goalChecked);
-            // Todo: Add it to data.js
-            // Todo: Update timeline
+            // Check: Add it to data.js
             var goalObj = {};
             goalObj.name = $scope.goalName;
             goalObj.data = [];
+            goalObj.milestones = $scope.milestones;
+            goalObj.checkIns = $scope.checkIns;
             goalObj.startDate = $scope.startDate;
             goalObj.endDate = $scope.endDate;
             goalObj.goalChecked = $scope.goalChecked;
             json.push(goalObj);
             console.log("json collection: ", json);
+            // Todo: Update timeline with new json data
         };
 
         // drawHeatmap();

@@ -34,14 +34,30 @@
                 <label for="inputStartDate">Start Date</label>
                 <input ng-model="startDate" type="text" class="form-control" id="inputStartDate" placeholder="2019-10-12">
             </div>
-        </div>
-        <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputEndDate">End Date</label>
                 <input ng-model="endDate" type="text" class="form-control" id="inputEndDate" placeholder="2020-10-12">
             </div>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputMilestone">Milestones</label>
+                <ul class="list-group">
+                    <li ng-repeat="milestone in milestones" class="list-group-item">{{milestone}}</li>
+                </ul>
+                <input ng-model="newMilestone" type="text" class="form-control" id="inputMilestone" placeholder="...">
+                <button ng-click="addMilestone(newMilestone)" class="btn btn-light btn-sm">Add Milestone</button>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputCheckIns">Check Ins</label>
+                <ul class="list-group">
+                    <li ng-repeat="item in checkIns" class="list-group-item">{{item}}</li>
+                </ul>
+                <input ng-model="newCheckIns" type="text" class="form-control" id="inputCheckIns" placeholder="...">
+                <button ng-click="addCheckIns(newCheckIns)" class="btn btn-light btn-sm">Add Check In</button>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="goalChecked">Is this goal achieved?</label>
             <div class="form-check">
                 <input ng-model="goalChecked" class="form-check-input" type="checkbox" id="goalChecked">
