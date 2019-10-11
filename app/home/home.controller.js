@@ -95,6 +95,24 @@ angular
             });
         };
 
+        $scope.addGoal = function() {
+            console.log("goalName: ", $scope.goalName);
+            console.log("goalDescription: ", $scope.goalDescription);
+            console.log("startDate: ", $scope.startDate);
+            console.log("endDate: ", $scope.endDate);
+            console.log("goalChecked: ", $scope.goalChecked);
+            // Todo: Add it to data.js
+            // Todo: Update timeline
+            var goalObj = {};
+            goalObj.name = $scope.goalName;
+            goalObj.data = [];
+            goalObj.startDate = $scope.startDate;
+            goalObj.endDate = $scope.endDate;
+            goalObj.goalChecked = $scope.goalChecked;
+            json.push(goalObj);
+            console.log("json collection: ", json);
+        };
+
         // drawHeatmap();
     });
 
