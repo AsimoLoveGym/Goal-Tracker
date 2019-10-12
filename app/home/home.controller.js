@@ -162,6 +162,8 @@ angular
             // Todo: Update timeline with new json data
         };
 
+        initTimeline(json);
+
         // drawHeatmap();
     });
 

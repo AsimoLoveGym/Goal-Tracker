@@ -229,5 +229,3 @@ function updateTimeline(json) {
     }));
     resetTimeline();
 }
-
-initTimeline(json);
