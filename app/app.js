@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        // .module('app', ['ngMaterial', 'ngMessages', 'ngRoute', 'ngCookies'])
         .module('app', ['ngMaterial', 'ngMessages', 'ngRoute', 'ngCookies'])
+        // .module('app', ['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngRoute', 'ngCookies'])
         .config(config)
         .run(run);
 

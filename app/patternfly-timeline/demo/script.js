@@ -75,15 +75,15 @@ function initTimeline(json) {
     // max date
     // end = new Date(''),
     var data = [],
-        start = new Date('2016-04-02T20:14:22.691Z'),
-        today = new Date('2016-05-02T17:59:06.134Z');
-    // today = new Date();
+        start = new Date('2018-04-02T20:14:22.691Z'),
+        endDate = new Date('2020-11-02T20:14:22.691Z'),
+        today = new Date();
 
     data = parseJSON(json);
 
     timeline = d3.chart.timeline()
-        .end(today)
-        .start(today - ONE_WEEK)
+        .end(endDate)
+        .start(start)
         .minScale(ONE_WEEK / ONE_MONTH)
         .maxScale(ONE_WEEK / ONE_DAY)
         .eventClick(function(el) {

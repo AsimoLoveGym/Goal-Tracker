@@ -8,6 +8,9 @@ angular
     .module('app')
     .controller('HomeController', function($scope, UserService, $rootScope, $mdDialog) {
         console.log("HomeController invoked");
+        var today = new Date();
+        $scope.startDate = today;
+        $scope.endDate = moment().add(1, 'y').toDate();
 
         // var vm = this;
         $scope.user = null;
@@ -108,6 +111,22 @@ angular
             console.log("$scope.checkIns: ", $scope.checkIns);
         };
 
+        $('#startDateDatepicker').datepicker({
+            autoclose: true,
+            todayBtn: "linked",
+            todayHighlight: true
+        });
+
+        $('#startDateDatepicker').datepicker('setDate', $scope.startDate);
+
+        $('#endDateDatepicker').datepicker({
+            autoclose: true,
+            todayBtn: "linked",
+            todayHighlight: true
+        });
+
+        $('#endDateDatepicker').datepicker('setDate', $scope.endDate);
+
         $scope.addGoal = function() {
             console.log("goalName: ", $scope.goalName);
             console.log("goalDescription: ", $scope.goalDescription);
@@ -116,8 +135,22 @@ angular
             console.log("goalChecked: ", $scope.goalChecked);
             // Check: Add it to data.js
             var goalObj = {};
+            let startEvent = {};
+            startEvent.date = $scope.startDate;
+            startEvent.details = {};
+            startEvent.details.event = "Goal Start";
+            startEvent.details.object = "Test";
+
+            let endEvent = {};
+            endEvent.date = $scope.endDate;
+            endEvent.details = {};
+            endEvent.details.event = "Goal Due Time";
+            endEvent.details.object = "Test";
+
             goalObj.name = $scope.goalName;
             goalObj.data = [];
+            goalObj.data.push(startEvent);
+            goalObj.data.push(endEvent);
             goalObj.milestones = $scope.milestones;
             goalObj.checkIns = $scope.checkIns;
             goalObj.startDate = $scope.startDate;
