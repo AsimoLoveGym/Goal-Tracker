@@ -125,6 +125,7 @@ angular
             goalObj.goalChecked = $scope.goalChecked;
             json.push(goalObj);
             console.log("json collection: ", json);
+            updateTimeline(json);
             // Todo: Update timeline with new json data
         };
 
