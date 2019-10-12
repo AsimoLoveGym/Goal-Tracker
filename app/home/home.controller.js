@@ -12,7 +12,6 @@ angular
         $scope.startDate = today;
         $scope.endDate = moment().add(1, 'y').toDate();
 
-        // var vm = this;
         $scope.user = null;
         $scope.allUsers = [];
         $scope.deleteUser = deleteUser;
@@ -79,7 +78,6 @@ angular
                     $scope.status = 'You cancelled the dialog.';
                 });
         };
-
 
         $scope.showPrompt = function(ev) {
             // Appending dialog to document.body to cover sidenav in docs app
@@ -159,7 +157,6 @@ angular
             json.push(goalObj);
             console.log("json collection: ", json);
             updateTimeline(json);
-            // Todo: Update timeline with new json data
         };
 
         initTimeline(json);

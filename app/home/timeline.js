@@ -75,8 +75,8 @@ function initTimeline(json) {
     // max date
     // end = new Date(''),
     var data = [],
-        start = new Date('2018-04-02T20:14:22.691Z'),
-        endDate = new Date('2020-11-02T20:14:22.691Z'),
+        start = new Date('2016-04-02T20:14:22.691Z'),
+        endDate = new Date('2022-06-01T20:14:22.691Z'),
         today = new Date();
 
     data = parseJSON(json);
