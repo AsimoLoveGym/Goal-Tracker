@@ -1,130 +1,146 @@
-<!-- Todo: Move to account management -->
-<!-- <h1>Hi {{vm.user.firstName}}!</h1>
-<p>You're logged in!!</p>
-<h3>All registered users:</h3>
-<ul>
-    <li ng-repeat="user in vm.allUsers">
-        {{user.username}} ({{user.firstName}} {{user.lastName}})
-        - <a ng-click="vm.deleteUser(user.id)">Delete</a>
-    </li>
-</ul>
-<p>&nbsp;</p> -->
-<div class="d-flex flex-row-reverse mr-5 mt-4">
-    <p><a href="#!/login" class="btn btn-primary">Logout</a></p>
-</div>
-<div class="container">
-    <div class="row toolbar-pf">
-        <div class="col-sm-12">
-            <form class="toolbar-pf-actions">
-                <div class="form-group">
-                    <!-- Todo: Use ng-repeat here -->
-                    <select class="selectpicker" id="timeline-selectpicker" data-live-search="true" multiple></select>
-                </div>
-                <div class="form-group">
-                    <div class="dropdown pull-left">
-                        <button class="btn btn-default dropdown-toggle" id="range-dropdown" data-toggle="dropdown" type="button">
-                            <span data-bind="label">1 week</span>&nbsp;
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu zoom-filter" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 hour</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 day</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 week</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 month</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown pull-left">
-                        <button class="btn btn-default dropdown-toggle" id="position-dropdown" data-toggle="dropdown" type="button">
-                            <span data-bind="label">ending</span>&nbsp;
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu zoom-filter" role="menu" aria-labelledby="dropdownMenu2">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">centered on</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">starting</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">ending</a></li>
-                        </ul>
-                    </div>
-                    <div class="input-group date" id="datepicker">
-                        <input type="text" class="form-control bootstrap-datepicker"><span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-default" id="reset-button" type="button">Reset Zoom</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div id="pf-timeline"></div>
-    </div>
-    <br />
-    <div id="legend"></div>
-</div>
-<div class="jumbotron">
+<!-- For admin user, show account management -->
+<div ng-show="user.username == 'admin'" class="jumbotron">
     <div class="container">
         <div class="col-sm-8 col-sm-offset-2">
             <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-            <div class="add-goal-form">
-                <!-- <div id="viewer"></div> -->
-                <button type="button" ng-class="{'btn-danger': addingGoal, 'btn-primary': !addingGoal}" class="btn " ng-click="addingGoal = !addingGoal">{{addingGoal ? 'Cancel' : 'Add'}}</button>
-                <div ng-show="addingGoal">
-                    <h4>Goal Information</h4>
-                    <form ng-submit="addGoal()">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputGoalName">Name</label>
-                                <input ng-model="goalName" type="text" class="form-control" id="inputGoalName" placeholder="What you'd like to achieve?">
-                            </div>
+            <div>
+                <div class="d-flex flex-row-reverse mr-5 mt-4">
+                    <p><a href="#!/login" class="btn btn-primary">Logout</a></p>
+                </div>
+                <h1>Hi {{user.firstName}}!</h1>
+                <p>You're logged in!!</p>
+                <h3>All registered users:</h3>
+                <ul>
+                    <li ng-repeat="user in allUsers" ng-if="user.username != 'admin'">
+                        {{user.username}} ({{user.firstName}} {{user.lastName}})
+                        - <button class="btn btn-danger btn-sm" ng-click="deleteUser(user.id)">Delete</button>
+                    </li>
+                </ul>
+                <p>&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- For regular user, show goals viewer -->
+<div ng-show="user.username != 'admin'">
+    <div class=" d-flex flex-row-reverse mr-5 mt-4">
+        <p><a href="#!/login" class="btn btn-primary">Logout</a></p>
+    </div>
+    <div class="container">
+        <div class="row toolbar-pf">
+            <div class="col-sm-12">
+                <form class="toolbar-pf-actions">
+                    <div class="form-group">
+                        <!-- Todo: Use ng-repeat here -->
+                        <select class="selectpicker" id="timeline-selectpicker" data-live-search="true" multiple></select>
+                    </div>
+                    <div class="form-group">
+                        <div class="dropdown pull-left">
+                            <button class="btn btn-default dropdown-toggle" id="range-dropdown" data-toggle="dropdown" type="button">
+                                <span data-bind="label">1 week</span>&nbsp;
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu zoom-filter" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 hour</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 day</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 week</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1 month</a></li>
+                            </ul>
                         </div>
-                        <div class="form-group">
-                            <label for="inputDescription">Description</label>
-                            <input ng-model="goalDescription" type="text" class="form-control" id="inputDescription" placeholder="Add a little bit detail about your goal">
+                        <div class="dropdown pull-left">
+                            <button class="btn btn-default dropdown-toggle" id="position-dropdown" data-toggle="dropdown" type="button">
+                                <span data-bind="label">ending</span>&nbsp;
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu zoom-filter" role="menu" aria-labelledby="dropdownMenu2">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">centered on</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">starting</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">ending</a></li>
+                            </ul>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputStartDate">Start Date</label>
-                                <div class="input-group date" id="startDateDatepicker">
-                                    <input type="text" class="form-control bootstrap-datepicker"><span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                        <div class="input-group date" id="datepicker">
+                            <input type="text" class="form-control bootstrap-datepicker"><span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-default" id="reset-button" type="button">Reset Zoom</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div id="pf-timeline"></div>
+        </div>
+        <br />
+        <div id="legend"></div>
+    </div>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+                <div class="add-goal-form">
+                    <!-- <div id="viewer"></div> -->
+                    <button type="button" ng-class="{'btn-danger': addingGoal, 'btn-primary': !addingGoal}" class="btn " ng-click="addingGoal = !addingGoal">{{addingGoal ? 'Cancel' : 'Add'}}</button>
+                    <div ng-show="addingGoal">
+                        <h4>Goal Information</h4>
+                        <form ng-submit="addGoal()">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputGoalName">Name</label>
+                                    <input ng-model="goalName" type="text" class="form-control" id="inputGoalName" placeholder="What you'd like to achieve?">
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputEndDate">End Date</label>
-                                <div class="input-group date" id="endDateDatepicker">
-                                    <input type="text" class="form-control bootstrap-datepicker"><span ng-model="endDate" class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                            <div class="form-group">
+                                <label for="inputDescription">Description</label>
+                                <input ng-model="goalDescription" type="text" class="form-control" id="inputDescription" placeholder="Add a little bit detail about your goal">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputStartDate">Start Date</label>
+                                    <div class="input-group date" id="startDateDatepicker">
+                                        <input type="text" class="form-control bootstrap-datepicker"><span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEndDate">End Date</label>
+                                    <div class="input-group date" id="endDateDatepicker">
+                                        <input type="text" class="form-control bootstrap-datepicker"><span ng-model="endDate" class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputMilestone">Milestones</label>
-                                <ul class="list-group">
-                                    <li ng-repeat="milestone in milestones" class="list-group-item">{{milestone}}</li>
-                                </ul>
-                                <input ng-model="newMilestone" type="text" class="form-control" id="inputMilestone" placeholder="...">
-                                <button ng-click="addMilestone(newMilestone)" class="btn btn-light btn-sm">Add Milestone</button>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputMilestone">Milestones</label>
+                                    <ul class="list-group">
+                                        <li ng-repeat="milestone in milestones" class="list-group-item">{{milestone}}</li>
+                                    </ul>
+                                    <input ng-model="newMilestone" type="text" class="form-control" id="inputMilestone" placeholder="...">
+                                    <button ng-click="addMilestone(newMilestone)" class="btn btn-light btn-sm">Add Milestone</button>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputCheckIns">Check Ins</label>
+                                    <ul class="list-group">
+                                        <li ng-repeat="item in checkIns" class="list-group-item">{{item}}</li>
+                                    </ul>
+                                    <input ng-model="newCheckIns" type="text" class="form-control" id="inputCheckIns" placeholder="...">
+                                    <button ng-click="addCheckIns(newCheckIns)" class="btn btn-light btn-sm">Add Check In</button>
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputCheckIns">Check Ins</label>
-                                <ul class="list-group">
-                                    <li ng-repeat="item in checkIns" class="list-group-item">{{item}}</li>
-                                </ul>
-                                <input ng-model="newCheckIns" type="text" class="form-control" id="inputCheckIns" placeholder="...">
-                                <button ng-click="addCheckIns(newCheckIns)" class="btn btn-light btn-sm">Add Check In</button>
+                            <div class="form-group">
+                                <label for="goalChecked">Is this goal achieved?</label>
+                                <div class="form-check">
+                                    <input ng-model="goalChecked" class="form-check-input" type="checkbox" id="goalChecked">
+                                    <label class="form-check-label ml-4" for="goalChecked">
+                                        Yes
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="goalChecked">Is this goal achieved?</label>
-                            <div class="form-check">
-                                <input ng-model="goalChecked" class="form-check-input" type="checkbox" id="goalChecked">
-                                <label class="form-check-label ml-4" for="goalChecked">
-                                    Yes
-                                </label>
+                            <div class="d-flex flex-row-reverse">
+                                <button type="submit" class="btn btn-primary">Add Goal</button>
                             </div>
-                        </div>
-                        <div class="d-flex flex-row-reverse">
-                            <button type="submit" class="btn btn-primary">Add Goal</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
